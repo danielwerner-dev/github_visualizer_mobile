@@ -70,9 +70,16 @@ export const Bio = styled.Text.attrs({
   text-align: center;
 `;
 
+export const Buttons = styled(RectButton)`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const ProfileButton = styled(RectButton)`
   margin: 10px;
   align-self: stretch;
+  width: 250;
   border-radius: 4px;
   background: #7159c1;
   justify-content: center;

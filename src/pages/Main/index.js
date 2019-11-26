@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types/';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Keyboard, ActivityIndicator } from 'react-native';
+import { Keyboard, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '../../services/api';
@@ -11,6 +11,7 @@ import {
   Form,
   Input,
   SubmitButton,
+  Buttons,
   List,
   User,
   Avatar,
@@ -49,6 +50,12 @@ export default class Main extends Component {
     if (prevState.users !== users) {
       AsyncStorage.setItem('users', JSON.stringify(users));
     }
+  }
+
+  handleDelete(userName) {
+    this.setState(prevState => ({
+      users: prevState.users.filter(user => user.name !== userName),
+    }));
   }
 
   handleAddUser = async () => {
@@ -96,7 +103,7 @@ export default class Main extends Component {
             />
             <SubmitButton onPress={this.handleAddUser}>
               {loading ? (
-                <ActivityIndicator color="#fff" />
+                <TouchableOpacity color="#fff" />
               ) : (
                 <Icon name="add" size={20} color="#FFF" />
               )}
@@ -110,9 +117,17 @@ export default class Main extends Component {
                 <Avatar source={{ uri: item.avatar }} />
                 <Name> {item.name}</Name>
                 <Bio>{item.bio}</Bio>
-                <ProfileButton onPress={() => this.handleNavigate(item)}>
-                  <ProfileButtonText>Ver Perfil</ProfileButtonText>
-                </ProfileButton>
+                <Buttons>
+                  <ProfileButton onPress={() => this.handleNavigate(item)}>
+                    <ProfileButtonText>Ver Perfil</ProfileButtonText>
+                  </ProfileButton>
+                  <Icon
+                    onPress={() => this.handleDelete(item.name)}
+                    name="delete"
+                    size={40}
+                    color="#FA3E3E"
+                  />
+                </Buttons>
               </User>
             )}
           />
