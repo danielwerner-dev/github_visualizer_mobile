@@ -54,7 +54,7 @@ export const Stars = styled.FlatList.attrs({
 
 export const Starred = styled(RectButton)`
   background: #f5f5f5;
-  border-radius: 4px;
+  border-left-color: red;
   padding: 10px 15px;
   margin-bottom: 20px;
   flex-direction: row;
